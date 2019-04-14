@@ -16,7 +16,6 @@ class App extends React.Component{
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.filterDropdown = this.filterDropdown.bind(this)
   }
 
   handleChange({ target: { name, value }}) {
@@ -32,14 +31,13 @@ class App extends React.Component{
     })
   }
 
-  filterDropdown() {
-    {this.state.items.forEach(item => {
-      uniqueSuppliers.push(item.supplier)
-    })}
+  filterSuppliers() {
+    {this.state.items.forEach(item => uniqueSuppliers.push(item.supplier))}
     uniqueSuppliers = [...new Set(uniqueSuppliers)]
-    {this.state.items.forEach(item => {
-      uniqueProducts.push(item.product)
-    })}
+  }
+
+  filterProducts() {
+    {this.state.items.forEach(item => uniqueProducts.push(item.product))}
     uniqueProducts = [...new Set(uniqueProducts)]
   }
 
@@ -51,8 +49,8 @@ class App extends React.Component{
 
   render() {
     if (!this.state.items) return null
-    this.filterDropdown()
-    console.log(uniqueSuppliers)
+    this.filterSuppliers()
+    this.filterProducts()
     return (
       <div>
 
@@ -94,16 +92,15 @@ class App extends React.Component{
             <tr id="row0">
               <td id="cell0-0">Supplier</td>
               <td id="cell0-1">Product</td>
-              <td id="cell0-2">Price</td>
+              <td id="cell0-2">Price (£)</td>
             </tr>
-            {this.state.selectedItem && console.log(this.state.selectedItem)}
-            {this.state.selectedItem &&
-              <tr id="row1">
-                <td id="cell1-0">{this.state.selectedItem.supplier}</td>
-                <td id="cell1-1">{this.state.selectedItem.product}</td>
-                <td id="cell1-2">£{this.state.selectedItem.price}</td>
-              </tr>
-            }
+
+            <tr id="row1">
+              <td id="cell1-0">{this.state.selectedItem ? this.state.selectedItem.supplier : 'xxx'}</td>
+              <td id="cell1-1">{this.state.selectedItem ? this.state.selectedItem.product : 'xxx'}</td>
+              <td id="cell1-2">{this.state.selectedItem ? this.state.selectedItem.price : 'xxx'}</td>
+            </tr>
+
           </tbody>
         </table>
 
