@@ -4,6 +4,9 @@ import axios from 'axios'
 
 import './css/dashboard.css'
 
+let uniqueSuppliers = []
+let uniqueProducts = []
+
 class App extends React.Component{
 
   constructor() {
@@ -13,6 +16,7 @@ class App extends React.Component{
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.filterDropdown = this.filterDropdown.bind(this)
   }
 
   handleChange({ target: { name, value }}) {
@@ -23,9 +27,20 @@ class App extends React.Component{
     e.preventDefault()
     this.state.items.filter(item => {
       if (item.supplier === this.state.supplier && item.product === this.state.product) {
-        this.setState({selectedItem: item})
+        this.setState({ selectedItem: item })
       }
     })
+  }
+
+  filterDropdown() {
+    {this.state.items.forEach(item => {
+      uniqueSuppliers.push(item.supplier)
+    })}
+    uniqueSuppliers = [...new Set(uniqueSuppliers)]
+    {this.state.items.forEach(item => {
+      uniqueProducts.push(item.product)
+    })}
+    uniqueProducts = [...new Set(uniqueProducts)]
   }
 
   componentDidMount(){
@@ -34,21 +49,24 @@ class App extends React.Component{
       .catch(err => console.log(err))
   }
 
-
   render() {
     if (!this.state.items) return null
+    this.filterDropdown()
+    console.log(uniqueSuppliers)
     return (
       <div>
 
         <h1>Product Pricing</h1>
         <form onSubmit={this.handleSubmit}>
+
           <div className="block">
             <label>Supplier</label>
+
             <div className="selectHolder">
               <select name="supplier" onChange={this.handleChange}>
                 <option value=''>Please select a supplier</option>
-                {this.state.items.map(item =>
-                  <option key={item._id} value={item.supplier}>{item.supplier}</option>
+                {uniqueSuppliers.map(supplier =>
+                  <option key={supplier} value={supplier}>{supplier}</option>
                 )}
               </select>
             </div>
@@ -56,11 +74,12 @@ class App extends React.Component{
 
           <div className="block">
             <label>Product</label>
+
             <div className="selectHolder">
               <select name="product" onChange={this.handleChange}>
                 <option>Please select a product</option>
-                {this.state.items.map(item =>
-                  <option key={item._id} value={item.product}>{item.product}</option>
+                {uniqueProducts.map(product =>
+                  <option key={product} value={product}>{product}</option>
                 )}
               </select>
             </div>
