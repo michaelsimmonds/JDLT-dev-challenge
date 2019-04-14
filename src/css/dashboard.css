@@ -1,25 +1,51 @@
-/*
- * Global add-ons
- */
+body {
+  color: #333;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 
-.sub-header {
+label, .submit {
+  font-size: 20px;
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+/* .submit {
+  font-size: 20px;
+  margin: 20px;
+  font-weight: bold;
+} */
+
+select {
+  margin: 20px;
+  width: 100%;
+  font-size: 15px;
+}
+
+.selectHolder {
+  display: flex;
   padding-bottom: 10px;
+}
+
+.block {
+  width: 50%;
+  display: inline-block;
+}
+
+h1, h2 {
+  padding: 20px;
   border-bottom: 1px solid #eee;
 }
 
-/*
- * Main content
- */
+table {
+  width: 100%;
+  margin: 20px;
+}
 
-.main {
-  padding: 20px;
+#row0 {
+  font-weight: bold;
 }
-@media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
-}
-.main .page-header {
-  margin-top: 0;
+
+td {
+  width: 33%;
+  padding: 5px 0;
 }
